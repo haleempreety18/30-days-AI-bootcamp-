@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebSprout Hub — 30-Day AI Skills Bootcamp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#05070f;
+  --deep:#0a0f1f;
+  --deep2:#0d1428;
+  --blue-600:#2563eb;
+  --blue-500:#3b82f6;
+  --blue-400:#60a5fa;
+  --cyan-400:#22d3ee;
+  --leaf-500:#34d399;
+  --white:#f4f7fc;
+  --muted:#93a0bd;
+  --muted-dim:#5d6a8c;
+  --glass-bg:rgba(255,255,255,0.055);
+  --glass-bg-2:rgba(255,255,255,0.09);
+  --glass-border:rgba(255,255,255,0.14);
+  --danger:#f87171;
+  --success:#34d399;
+  --radius:18px;
+  --ff-display:'Space Grotesk',sans-serif;
+  --ff-body:'Inter',sans-serif;
+  --ff-mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--void);
+  color:var(--white);
+  font-family:var(--ff-body);
+  line-height:1.5;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -5%, rgba(59,130,246,0.16), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 10%, rgba(34,211,238,0.10), transparent 55%),
+    radial-gradient(ellipse 800px 600px at 50% 100%, rgba(59,130,246,0.08), transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+#bgCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.55;}
+h1,h2,h3,.ff-display{font-family:var(--ff-display);letter-spacing:-0.01em;}
+a{color:inherit;}
+.wrap{position:relative;z-index:1;}
+::selection{background:rgba(59,130,246,0.35);}
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--void);}
+::-webkit-scrollbar-thumb{background:#1c2540;border-radius:10px;}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(5,7,15,0.55);border-bottom:1px solid rgba(255,255,255,0.06);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:var(--ff-display);font-weight:700;font-size:19px;display:flex;align-items:center;gap:8px;}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--blue-500),var(--cyan-400));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(59,130,246,0.5);}
+.logo .mark svg{width:17px;height:17px;}
+.logo span{color:var(--blue-400);font-weight:600;}
+.admin-link{background:var(--glass-bg);border:1px solid var(--glass-border);color:var(--muted);padding:9px 16px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--ff-body);}
+.admin-link:hover{color:var(--white);border-color:var(--blue-500);background:rgba(59,130,246,0.12);}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:140px 24px 80px;text-align:center;}
+.hero-inner{max-width:780px;position:relative;z-index:2;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--cyan-400);background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.25);padding:7px 16px;border-radius:100px;margin-bottom:28px;opacity:0;animation:fadeUp .8s ease forwards;}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan-400);box-shadow:0 0 8px var(--cyan-400);animation:pulse 2s infinite;}
+.hero h1{font-size:clamp(34px,6.2vw,64px);font-weight:700;line-height:1.08;margin-bottom:18px;opacity:0;animation:fadeUp .8s ease .1s forwards;}
+.hero h1 .grad{background:linear-gradient(100deg,var(--blue-400),var(--cyan-400) 60%,var(--leaf-500));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-tagline{font-size:clamp(17px,2.4vw,22px);font-weight:600;color:var(--blue-400);margin-bottom:20px;opacity:0;animation:fadeUp .8s ease .2s forwards;font-family:var(--ff-display);}
+.hero-desc{font-size:16px;color:var(--muted);max-width:560px;margin:0 auto 38px;opacity:0;animation:fadeUp .8s ease .3s forwards;}
+.btn-primary{
+  background:linear-gradient(100deg,var(--blue-600),var(--blue-500));
+  color:#fff;border:none;padding:17px 36px;border-radius:14px;
+  font-size:16px;font-weight:700;font-family:var(--ff-body);cursor:pointer;
+  display:inline-flex;align-items:center;gap:10px;
+  box-shadow:0 8px 30px -6px rgba(59,130,246,0.55);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px -6px rgba(59,130,246,0.7);}
+.btn-primary:active{transform:translateY(-1px);}
+.btn-primary svg{transition:transform .25s;}
+.btn-primary:hover svg{transform:translateX(4px);}
+.hero-cta{opacity:0;animation:fadeUp .8s ease .4s forwards;}
+.hero-stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:44px;opacity:0;animation:fadeUp .8s ease .5s forwards;}
+.stat-chip{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);background:var(--glass-bg);border:1px solid var(--glass-border);padding:10px 16px;border-radius:100px;}
+.stat-chip svg{width:15px;height:15px;color:var(--cyan-400);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+.scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);color:var(--muted-dim);animation:bob 2.2s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+
+/* ---------- Section shell ---------- */
+section{position:relative;z-index:1;padding:90px 24px;}
+.section-head{max-width:680px;margin:0 auto 48px;text-align:center;}
+.section-head .eyebrow{margin-bottom:16px;}
+.section-head h2{font-size:clamp(26px,4vw,38px);font-weight:700;margin-bottom:12px;}
+.section-head p{color:var(--muted);font-size:15.5px;}
+
+/* ---------- Glass ---------- */
+.glass{
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 20px 60px -20px rgba(0,0,0,0.55);
+}
+
+/* ---------- Registration ---------- */
+.reg-section{max-width:800px;margin:0 auto;}
+.reg-card{padding:36px;}
+@media(max-width:640px){.reg-card{padding:22px;}}
+.reg-head{text-align:center;margin-bottom:34px;}
+.reg-head h2{font-size:clamp(24px,4vw,32px);margin-bottom:8px;}
+.reg-head p{color:var(--muted);font-size:14.5px;}
+
+/* growth progress */
+.growth-progress{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:38px;position:relative;padding:0 6px;}
+.growth-progress .track{position:absolute;top:17px;left:24px;right:24px;height:3px;background:rgba(255,255,255,0.08);border-radius:3px;z-index:0;}
+.growth-progress .track-fill{position:absolute;top:17px;left:24px;height:3px;background:linear-gradient(90deg,var(--blue-500),var(--leaf-500));border-radius:3px;z-index:1;transition:width .5s cubic-bezier(.2,.8,.2,1);width:0%;}
+.g-step{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:9px;flex:1;}
+.g-node{width:36px;height:36px;border-radius:50%;background:var(--deep2);border:2px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;transition:all .35s;color:var(--muted-dim);}
+.g-node svg{width:16px;height:16px;}
+.g-step.active .g-node{border-color:var(--blue-400);background:rgba(59,130,246,0.18);color:var(--blue-400);box-shadow:0 0 0 6px rgba(59,130,246,0.1),0 0 18px rgba(59,130,246,0.4);}
+.g-step.done .g-node{border-color:var(--leaf-500);background:var(--leaf-500);color:#04170f;}
+.g-label{font-size:11.5px;font-weight:600;color:var(--muted-dim);text-align:center;max-width:70px;}
+.g-step.active .g-label{color:var(--blue-400);}
+.g-step.done .g-label{color:var(--leaf-500);}
+
+/* form steps */
+.step{display:none;animation:fadeUp .5s ease;}
+.step.visible{display:block;}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:640px){.field-grid{grid-template-columns:1fr;}}
+.field{position:relative;margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px;}
+.input-wrap{position:relative;}
+.input-wrap svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted-dim);pointer-events:none;transition:color .2s;}
+.input-wrap input[type=text],.input-wrap input[type=email],.input-wrap input[type=tel],.input-wrap input[type=number],.input-wrap select,textarea{
+  width:100%;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);
+  color:var(--white);padding:13px 15px 13px 42px;border-radius:11px;font-size:14.5px;font-family:var(--ff-body);
+  transition:all .2s;outline:none;
+}
+textarea{padding-left:15px;resize:vertical;min-height:90px;}
+.input-wrap select{appearance:none;-webkit-appearance:none;cursor:pointer;}
+.input-wrap.select-arrow::after{content:'';position:absolute;right:16px;top:50%;transform:translateY(-50%);width:9px;height:9px;border-right:2px solid var(--muted-dim);border-bottom:2px solid var(--muted-dim);transform:translateY(-65%) rotate(45deg);pointer-events:none;}
+.input-wrap input:focus,.input-wrap select:focus,textarea:focus{border-color:var(--blue-500);background:rgba(59,130,246,0.06);box-shadow:0 0 0 4px rgba(59,130,246,0.12);}
+.input-wrap input:focus + svg,.field:focus-within svg{color:var(--blue-400);}
+.field.error input,.field.error select,.field.error textarea{border-color:var(--danger);}
+.field.error .err-msg{display:flex;}
+.err-msg{display:none;align-items:center;gap:5px;font-size:12px;color:var(--danger);margin-top:6px;font-weight:500;}
+.field.ok .input-wrap::before{content:'';position:absolute;right:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;background:var(--success);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat;}
+
+/* pill / choice groups */
+.pill-row{display:flex;gap:12px;flex-wrap:wrap;}
+.pill{flex:1;min-width:120px;text-align:center;padding:13px 16px;border-radius:11px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);cursor:pointer;font-weight:600;font-size:14px;color:var(--muted);transition:all .2s;user-select:none;}
+.pill:hover{border-color:rgba(59,130,246,0.4);color:var(--white);}
+.pill.selected{border-color:var(--blue-500);background:rgba(59,130,246,0.16);color:var(--blue-400);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+
+.level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:640px){.level-grid{grid-template-columns:1fr;}}
+.level-card{padding:18px 14px;border-radius:13px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);cursor:pointer;transition:all .2s;text-align:center;}
+.level-card svg{width:22px;height:22px;color:var(--cyan-400);margin-bottom:8px;}
+.level-card b{display:block;font-size:14.5px;margin-bottom:3px;}
+.level-card span{font-size:12px;color:var(--muted-dim);}
+.level-card .price-tag{margin-top:10px;display:inline-block;font-family:var(--ff-mono);font-size:13px;font-weight:700;color:var(--cyan-400);background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.25);padding:4px 10px;border-radius:100px;}
+.level-card.selected{border-color:var(--cyan-400);background:rgba(34,211,238,0.1);box-shadow:0 0 0 3px rgba(34,211,238,0.1);}
+
+.check-row{display:flex;align-items:flex-start;gap:12px;padding:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;margin-top:6px;}
+.check-row input{margin-top:3px;width:18px;height:18px;accent-color:var(--blue-500);flex-shrink:0;cursor:pointer;}
+.check-row label{font-size:13.5px;color:var(--muted);line-height:1.5;cursor:pointer;}
+.check-row a{color:var(--blue-400);font-weight:600;text-decoration:underline;cursor:pointer;}
+
+/* payment card */
+.pay-card{background:linear-gradient(135deg,#0f1c3d,#0a1226 70%);border:1px solid rgba(59,130,246,0.3);border-radius:16px;padding:26px;position:relative;overflow:hidden;margin-bottom:22px;}
+.pay-card::before{content:'';position:absolute;top:-60%;right:-30%;width:280px;height:280px;background:radial-gradient(circle,rgba(34,211,238,0.18),transparent 70%);pointer-events:none;}
+.pay-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;}
+.pay-card-head h3{font-size:16px;font-weight:700;}
+.pay-badge{background:rgba(34,211,238,0.14);color:var(--cyan-400);font-size:11px;font-weight:700;padding:5px 11px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;}
+.pay-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px dashed rgba(255,255,255,0.1);}
+.pay-row:last-of-type{border-bottom:none;}
+.pay-row .k{font-size:12.5px;color:var(--muted-dim);text-transform:uppercase;letter-spacing:.04em;font-weight:600;}
+.pay-row .v{font-size:15.5px;font-weight:700;font-family:var(--ff-display);}
+.pay-row .v.mono{font-family:var(--ff-mono);letter-spacing:0.03em;color:var(--cyan-400);}
+.copy-btn{width:100%;margin-top:18px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.16);color:var(--white);padding:15px;border-radius:12px;font-weight:700;font-size:14.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:all .2s;font-family:var(--ff-body);}
+.copy-btn:hover{background:rgba(59,130,246,0.16);border-color:var(--blue-500);}
+.copy-btn svg{width:17px;height:17px;}
+.copy-btn.copied{background:rgba(52,211,153,0.16);border-color:var(--success);color:var(--success);}
+
+.confirm-tabs{display:flex;gap:10px;margin-bottom:16px;}
+.confirm-tab{flex:1;text-align:center;padding:12px;border-radius:11px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);cursor:pointer;font-weight:600;font-size:13.5px;color:var(--muted);transition:all .2s;}
+.confirm-tab.selected{border-color:var(--blue-500);background:rgba(59,130,246,0.14);color:var(--blue-400);}
+.upload-zone{border:2px dashed rgba(255,255,255,0.16);border-radius:13px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .2s;}
+.upload-zone:hover{border-color:var(--blue-500);background:rgba(59,130,246,0.05);}
+.upload-zone svg{width:28px;height:28px;color:var(--muted-dim);margin-bottom:10px;}
+.upload-zone p{font-size:13.5px;color:var(--muted);font-weight:600;}
+.upload-zone span{font-size:12px;color:var(--muted-dim);}
+.upload-preview{display:none;align-items:center;gap:12px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.3);border-radius:12px;padding:12px;margin-top:10px;}
+.upload-preview img{width:52px;height:52px;object-fit:cover;border-radius:8px;}
+.upload-preview .info{flex:1;font-size:13px;}
+.upload-preview .info b{display:block;color:var(--success);}
+.upload-preview button{background:none;border:none;color:var(--muted-dim);cursor:pointer;font-size:18px;line-height:1;}
+
+/* review */
+.review-list{display:flex;flex-direction:column;gap:0;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:24px;}
+.review-row{display:flex;justify-content:space-between;padding:13px 16px;font-size:13.5px;background:rgba(255,255,255,0.02);}
+.review-row:nth-child(even){background:rgba(255,255,255,0.045);}
+.review-row .k{color:var(--muted-dim);font-weight:600;}
+.review-row .v{font-weight:600;text-align:right;max-width:60%;}
+
+/* step nav */
+.step-nav{display:flex;gap:12px;margin-top:8px;}
+.btn-ghost{flex:0 0 auto;background:transparent;border:1.5px solid rgba(255,255,255,0.14);color:var(--muted);padding:15px 24px;border-radius:12px;font-weight:700;font-size:14.5px;cursor:pointer;transition:all .2s;font-family:var(--ff-body);}
+.btn-ghost:hover{border-color:var(--white);color:var(--white);}
+.btn-continue{flex:1;background:linear-gradient(100deg,var(--blue-600),var(--blue-500));border:none;color:#fff;padding:15px 24px;border-radius:12px;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 8px 26px -8px rgba(59,130,246,0.6);transition:all .2s;font-family:var(--ff-body);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-continue:hover{transform:translateY(-2px);}
+.btn-continue:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.btn-continue.submit{background:linear-gradient(100deg,var(--blue-600),var(--cyan-400));}
+.spinner{width:17px;height:17px;border:2.5px solid rgba(255,255,255,0.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+.btn-continue.loading .spinner{display:inline-block;}
+.btn-continue.loading .btn-text{display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* features */
+.features-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;}
+.feature-card{padding:26px 22px;opacity:0;transform:translateY(20px);transition:opacity .6s ease, transform .6s ease;}
+.feature-card.in-view{opacity:1;transform:translateY(0);}
+.feature-card .ic{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,rgba(59,130,246,0.22),rgba(34,211,238,0.14));display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.feature-card .ic svg{width:20px;height:20px;color:var(--cyan-400);}
+.feature-card h4{font-size:15.5px;font-weight:700;margin-bottom:6px;}
+.feature-card p{font-size:13px;color:var(--muted-dim);}
+
+/* footer */
+footer{text-align:center;padding:50px 24px 40px;border-top:1px solid rgba(255,255,255,0.06);}
+footer .f-logo{font-family:var(--ff-display);font-weight:700;font-size:16px;margin-bottom:8px;}
+footer .f-logo span{color:var(--blue-400);}
+footer p{font-size:13px;color:var(--muted-dim);}
+
+/* toast */
+#toastContainer{position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:10px;align-items:center;}
+.toast{background:rgba(15,23,42,0.95);border:1px solid var(--success);color:var(--white);padding:13px 22px;border-radius:12px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:0 10px 30px -8px rgba(0,0,0,0.6);animation:toastIn .3s ease;backdrop-filter:blur(10px);}
+.toast svg{width:17px;height:17px;color:var(--success);flex-shrink:0;}
+.toast.error{border-color:var(--danger);}
+.toast.error svg{color:var(--danger);}
+@keyframes toastIn{from{opacity:0;transform:translateY(-14px);}to{opacity:1;transform:translateY(0);}}
+
+/* overlay */
+.overlay{position:fixed;inset:0;background:rgba(3,5,12,0.82);backdrop-filter:blur(6px);z-index:150;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto;}
+.overlay.show{display:flex;}
+.success-card{max-width:460px;width:100%;padding:42px 32px;text-align:center;position:relative;overflow:hidden;margin:auto;}
+.success-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--leaf-500),var(--cyan-400));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:pop .5s cubic-bezier(.2,1.4,.4,1);box-shadow:0 0 0 10px rgba(52,211,153,0.1),0 0 40px rgba(52,211,153,0.35);}
+.success-icon svg{width:34px;height:34px;color:#04170f;}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.12);}100%{transform:scale(1);}}
+.success-card h2{font-size:23px;margin-bottom:10px;}
+.success-card p{color:var(--muted);font-size:14px;margin-bottom:6px;}
+.student-id-box{margin:22px 0;padding:18px;border-radius:13px;background:rgba(59,130,246,0.1);border:1.5px dashed rgba(59,130,246,0.45);}
+.student-id-box .label{font-size:11px;color:var(--muted-dim);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:6px;}
+.student-id-box .sid{font-family:var(--ff-mono);font-size:24px;font-weight:700;color:var(--cyan-400);letter-spacing:0.03em;}
+.student-id-box .hint{font-size:12px;color:var(--muted);margin-top:8px;}
+.btn-whatsapp{width:100%;background:linear-gradient(100deg,#22c55e,#16a34a);border:none;color:#fff;padding:16px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:20px;box-shadow:0 10px 30px -8px rgba(34,197,94,0.55);transition:transform .2s;}
+.btn-whatsapp:hover{transform:translateY(-2px);}
+.btn-whatsapp svg{width:19px;height:19px;}
+.link-close{display:inline-block;margin-top:16px;font-size:13px;color:var(--muted-dim);cursor:pointer;text-decoration:underline;}
+.confetti-piece{position:absolute;top:-10%;border-radius:2px;pointer-events:none;animation:confettiFall linear forwards;}
+@keyframes confettiFall{to{transform:translateY(560px) rotate(600deg);opacity:0;}}
+
+/* modal (terms) */
+.modal-box{max-width:520px;width:100%;padding:32px;max-height:80vh;overflow-y:auto;}
+.modal-box h3{font-size:19px;margin-bottom:14px;}
+.modal-box p{font-size:13.5px;color:var(--muted);margin-bottom:12px;}
+.modal-close{margin-top:10px;}
+
+/* ---------- Admin ---------- */
+.admin-panel{max-width:1100px;width:100%;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;padding:0;}
+.admin-gate{padding:44px 36px;text-align:center;max-width:400px;margin:0 auto;}
+.admin-gate .ic{width:56px;height:56px;border-radius:15px;background:rgba(59,130,246,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.admin-gate .ic svg{width:26px;height:26px;color:var(--blue-400);}
+.admin-gate h3{font-size:19px;margin-bottom:8px;}
+.admin-gate p{font-size:13px;color:var(--muted-dim);margin-bottom:20px;}
+.admin-gate input{width:100%;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.12);color:#fff;padding:13px 15px;border-radius:11px;font-size:14px;margin-bottom:14px;text-align:center;letter-spacing:.1em;}
+.admin-head{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;gap:14px;}
+.admin-head h3{font-size:18px;}
+.admin-head .close-x{cursor:pointer;color:var(--muted-dim);font-size:22px;line-height:1;background:none;border:none;}
+.admin-toolbar{display:flex;gap:10px;padding:16px 26px;flex-wrap:wrap;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);}
+.admin-search{flex:1;min-width:180px;position:relative;}
+.admin-search input{width:100%;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);color:#fff;padding:10px 14px 10px 38px;border-radius:10px;font-size:13.5px;}
+.admin-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted-dim);}
+.admin-filter{background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);color:var(--muted);padding:10px 14px;border-radius:10px;font-size:13px;cursor:pointer;}
+.admin-count{font-size:12.5px;color:var(--muted-dim);font-weight:600;white-space:nowrap;}
+.admin-body{flex:1;overflow:auto;padding:0 26px 26px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{text-align:left;padding:10px 12px;color:var(--muted-dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid rgba(255,255,255,0.1);position:sticky;top:0;background:var(--deep2);}
+tbody td{padding:12px;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle;}
+tbody tr:hover{background:rgba(255,255,255,0.03);}
+.sid-chip{font-family:var(--ff-mono);font-size:11.5px;background:rgba(59,130,246,0.12);color:var(--blue-400);padding:4px 8px;border-radius:6px;}
+.lvl-chip{font-size:11px;font-weight:700;padding:4px 9px;border-radius:100px;background:rgba(34,211,238,0.12);color:var(--cyan-400);}
+.status-chip{font-size:11px;font-weight:700;padding:5px 11px;border-radius:100px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:5px;}
+.status-chip.pending{background:rgba(251,191,36,0.14);color:#fbbf24;}
+.status-chip.paid{background:rgba(52,211,153,0.16);color:var(--success);}
+.view-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:var(--muted);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;}
+.view-btn:hover{color:#fff;border-color:var(--blue-500);}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted-dim);}
+.empty-state svg{width:38px;height:38px;margin-bottom:14px;opacity:.5;}
+
+.detail-panel{max-width:480px;width:100%;padding:0;max-height:85vh;display:flex;flex-direction:column;}
+.detail-head{padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;}
+.detail-body{padding:20px 24px;overflow-y:auto;}
+.detail-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;gap:12px;}
+.detail-row .k{color:var(--muted-dim);font-weight:600;flex-shrink:0;}
+.detail-row .v{text-align:right;font-weight:600;}
+.detail-body img{width:100%;border-radius:10px;margin-top:12px;}
+
+@media(max-width:640px){
+  .admin-panel{max-height:94vh;}
+  thead{display:none;}
+  table,tbody,tr,td{display:block;width:100%;}
+  tbody tr{border:1px solid rgba(255,255,255,0.08);border-radius:12px;margin-bottom:12px;padding:10px 4px;}
+  tbody td{border:none;display:flex;justify-content:space-between;padding:7px 10px;}
+  tbody td::before{content:attr(data-label);color:var(--muted-dim);font-weight:700;font-size:11px;text-transform:uppercase;}
+}
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div class="wrap">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#04170f" stroke-width="2.5"><path d="M12 2v6M12 22v-4M4.9 4.9l4.2 4.2M19.1 19.1l-4.2-4.2M2 12h6M22 12h-4M4.9 19.1l4.2-4.2M19.1 4.9l-4.2 4.2"/></svg></div>WebSprout<span>Hub</span></div>
+    <button class="admin-link" onclick="Admin.open()">Admin Dashboard</button>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="dot"></span> WebSprout Hub Presents</p>
+    <h1>30-Day <span class="grad">AI Skills</span> Bootcamp</h1>
+    <p class="hero-tagline">One Month Can Change Your Future.</p>
+    <p class="hero-desc">Learn practical AI skills, master powerful AI tools, build real-world projects, and prepare yourself for global freelance opportunities.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="scrollToForm()">Register Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>30 Days, Live Practical Training</div>
+      <div class="stat-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2c2.5 2.7 4 6.3 4 10s-1.5 7.3-4 10c-2.5-2.7-4-6.3-4-10s1.5-7.3 4-10z"/></svg>Global Freelance Ready</div>
+      <div class="stat-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2z"/></svg>Beginner Friendly</div>
+    </div>
+  </div>
+  <div class="scroll-hint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+</section>
+
+<section class="reg-section" id="register">
+  <div class="reg-card glass">
+    <div class="reg-head">
+      <h2 id="regHeadTitle">Secure Your Spot</h2>
+      <p id="regHeadSub">Fill in your details — it takes about 3 minutes.</p>
+    </div>
+
+    <div class="growth-progress" id="growthProgress">
+      <div class="track"></div><div class="track-fill" id="trackFill"></div>
+    </div>
+
+    <div id="formSteps">
+      <!-- STEP 1 -->
+      <div class="step visible" data-step="1">
+        <div class="field-grid">
+          <div class="field" id="f_fullName">
+            <label>Full Name</label>
+            <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+            <input type="text" placeholder="e.g. Amina Bello" data-field="fullName"></div>
+            <div class="err-msg">⚠ Please enter your full name</div>
+          </div>
+          <div class="field" id="f_email">
+            <label>Email Address</label>
+            <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <input type="email" placeholder="you@email.com" data-field="email"></div>
+            <div class="err-msg">⚠ Enter a valid email address</div>
+          </div>
+          <div class="field" id="f_whatsapp">
+            <label>WhatsApp Number</label>
+            <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8.2 19L3 21z"/></svg>
+            <input type="tel" placeholder="+234 800 000 0000" data-field="whatsapp"></div>
+            <div class="err-msg">⚠ Enter a valid WhatsApp number</div>
+          </div>
+          <div class="field" id="f_country">
+            <label>Country</label>
+            <div class="input-wrap select-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2c2.5 2.7 4 6.3 4 10s-1.5 7.3-4 10c-2.5-2.7-4-6.3-4-10s1.5-7.3 4-10z"/></svg>
+            <select data-field="country">
+              <option value="">Select country</option>
+              <option>Nigeria</option><option>Ghana</option><option>Kenya</option><option>South Africa</option>
+              <option>Egypt</option><option>Cameroon</option><option>Uganda</option><option>Rwanda</option>
+              <option>United Kingdom</option><option>United States</option><option>Canada</option><option>Other</option>
+            </select></div>
+            <div class="err-msg">⚠ Select your country</div>
+          </div>
+          <div class="field" id="f_state">
+            <label>State</label>
+            <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7.4 7-13a7 7 0 1 0-14 0c0 5.6 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <input type="text" placeholder="e.g. Kaduna" data-field="state"></div>
+            <div class="err-msg">⚠ Please enter your state</div>
+          </div>
+          <div class="field" id="f_city">
+            <label>City</label>
+            <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V8l6-4 6 4v13M10 21v-6h4v6"/></svg>
+            <input type="text" placeholder="e.g. Kaduna City" data-field="city"></div>
+            <div class="err-msg">⚠ Please enter your city</div>
+          </div>
+          <div class="field" id="f_occupation">
+            <label>Occupation</label>
+            <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            <input type="text" placeholder="e.g. Student, Teacher" data-field="occupation"></div>
+            <div class="err-msg">⚠ Please enter your occupation</div>
+          </div>
+          <div class="field" id="f_age">
+            <label>Age</label>
+            <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+            <input type="number" min="10" max="90" placeholder="e.g. 22" data-field="age"></div>
+            <div class="err-msg">⚠ Enter a valid age (10–90)</div>
+          </div>
+          <div class="field" id="f_gender">
+            <label>Gender</label>
+            <div class="input-wrap select-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+            <select data-field="gender">
+              <option value="">Select gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option>
+            </select></div>
+            <div class="err-msg">⚠ Select your gender</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step" data-step="2">
+        <div class="field" id="f_usedAi">
+          <label>Have you used AI before?</label>
+          <div class="pill-row" id="usedAiRow">
+            <div class="pill" data-value="Yes">Yes</div>
+            <div class="pill" data-value="No">No</div>
+          </div>
+          <div class="err-msg">⚠ Please choose an option</div>
+        </div>
+
+        <div class="field" id="f_level" style="margin-top:26px;">
+          <label>Choose Your Level</label>
+          <div class="level-grid" id="levelGrid">
+            <div class="level-card" data-value="Beginner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <b>Beginner</b><span>New to AI tools</span><div class="price-tag">$1.29</div>
+            </div>
+            <div class="level-card" data-value="Intermediate">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <b>Intermediate</b><span>Some experience</span><div class="price-tag">$1.94</div>
+            </div>
+            <div class="level-card" data-value="Advanced">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              <b>Advanced</b><span>Ready to build fast</span><div class="price-tag">$3.23</div>
+            </div>
+          </div>
+          <div class="err-msg">⚠ Please choose your level</div>
+        </div>
+
+        <div class="field" id="f_reason" style="margin-top:26px;">
+          <label>Why do you want to join this Bootcamp?</label>
+          <textarea placeholder="Tell us briefly what you hope to achieve..." data-field="reason"></textarea>
+          <div class="err-msg">⚠ Please write at least a short sentence</div>
+        </div>
+
+        <div class="field" id="f_terms">
+          <div class="check-row">
+            <input type="checkbox" id="termsCheck">
+            <label for="termsCheck">I agree to the <a onclick="Modal.openTerms(event)">Terms &amp; Conditions and Privacy Policy</a>.</label>
+          </div>
+          <div class="err-msg">⚠ You must agree to continue</div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step" data-step="3">
+        <div class="pay-card">
+          <div class="pay-card-head"><h3>Registration Payment</h3><span class="pay-badge">Secure</span></div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:6px;">Complete your registration by making payment to the account below.</p>
+          <div class="pay-row"><span class="k">Bank Name</span><span class="v">Access Bank</span></div>
+          <div class="pay-row"><span class="k">Account Name</span><span class="v">Halima Mas'ud</span></div>
+          <div class="pay-row"><span class="k">Account Number</span><span class="v mono">1706909660</span></div>
+          <div class="pay-row" id="payAmountRow"><span class="k">Amount Due (<span id="payAmountLevel">—</span>)</span><span class="v" id="payAmountValue" style="color:var(--leaf-500);">—</span></div>
+          <button class="copy-btn" id="copyBtn" onclick="copyAccount()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="copyBtnText">📋 Copy Account Number</span>
+          </button>
+        </div>
+
+        <div class="field">
+          <label>Payment Confirmation</label>
+          <div class="confirm-tabs" id="confirmTabs">
+            <div class="confirm-tab selected" data-value="screenshot">Upload Screenshot</div>
+            <div class="confirm-tab" data-value="reference">Enter Reference No.</div>
+          </div>
+
+          <div id="screenshotPane">
+            <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg>
+              <p>Click to upload payment screenshot</p>
+              <span>PNG or JPG, max 5MB</span>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleFile(event)">
+            <div class="upload-preview" id="uploadPreview">
+              <img id="previewImg" src="">
+              <div class="info"><b>Screenshot attached</b><span id="previewName"></span></div>
+              <button onclick="clearFile()">✕</button>
+            </div>
+          </div>
+
+          <div id="referencePane" style="display:none;">
+            <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg>
+            <input type="text" placeholder="e.g. TRX-9834021" data-field="txRef"></div>
+          </div>
+          <div class="err-msg" id="err_payment">⚠ Please upload a screenshot or enter a reference number</div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step" data-step="4">
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px;">Review your registration</label>
+        <div class="review-list" id="reviewList"></div>
+        <div class="check-row" style="margin-bottom:6px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf-500)" stroke-width="2" width="18" height="18" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>
+          <label style="cursor:default;">Everything looks good? Submit below to confirm your seat.</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn-ghost" id="prevBtn" onclick="Wizard.prev()" style="display:none;">Back</button>
+      <button class="btn-continue" id="nextBtn" onclick="Wizard.next()"><span class="btn-text">Continue</span><span class="spinner"></span></button>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="section-head">
+    <p class="eyebrow"><span class="dot"></span> Why Join</p>
+    <h2>Built like the product it teaches you to build</h2>
+    <p>Every part of this experience is designed to be fast, clear, and worth your time.</p>
+  </div>
+  <div class="features-grid" id="featuresGrid"></div>
+</section>
+
+<footer>
+  <div class="f-logo">WebSprout<span>Hub</span></div>
+  <p>Powered by WebSprout Hub</p>
+  <p>Rooted for Africa. Built for the Future.</p>
+</footer>
+
+</div>
+
+<div id="toastContainer"></div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="overlay" id="successOverlay">
+  <div class="success-card glass" id="successCard">
+    <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h2>🎉 Registration Successful!</h2>
+    <p>Your registration has been received successfully.</p>
+    <p style="color:var(--blue-400);font-weight:600;">Welcome to the WebSprout Hub AI Bootcamp!</p>
+    <div class="student-id-box">
+      <div class="label">Your Student ID</div>
+      <div class="sid" id="studentIdDisplay">WSAI-2026-0001</div>
+      <div class="hint">Save this ID — you'll need it for attendance, assignments, and certification.</div>
+    </div>
+    <button class="btn-whatsapp" onclick="joinWhatsapp()">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.4 15 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.5-.5-1-1.1-1.4-1.8-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.1.1-.3 0-.4-.1-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.6.6-.9 1.3-.9 2.1.1.9.4 1.8 1 2.6 1.1 1.6 2.4 2.8 4.1 3.5.5.2.9.4 1.4.5.6.2 1.1.2 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
+      Join WhatsApp Community
+    </button>
+    <div class="link-close" onclick="Overlay.close('successOverlay')">Close</div>
+  </div>
+</div>
+
+<!-- TERMS MODAL -->
+<div class="overlay" id="termsOverlay">
+  <div class="modal-box glass">
+    <h3>Terms &amp; Conditions and Privacy Policy</h3>
+    <p>By registering for the WebSprout Hub 30-Day AI Skills Bootcamp, you agree that the information you provide will be used solely for enrollment, attendance tracking, certification, and program communication.</p>
+    <p>Payment for the bootcamp is non-refundable once your seat is confirmed, except where a session is cancelled by WebSprout Hub. Screenshots or references submitted are used only to verify payment and are kept confidential.</p>
+    <p>Participants are expected to attend sessions, complete assignments, and engage respectfully with facilitators and peers throughout the 30 days.</p>
+    <button class="btn-ghost modal-close" onclick="Overlay.close('termsOverlay')">Close</button>
+  </div>
+</div>
+
+<!-- ADMIN OVERLAY -->
+<div class="overlay" id="adminOverlay">
+  <div class="admin-panel glass" id="adminPanel"></div>
+</div>
+
+<!-- DETAIL OVERLAY -->
+<div class="overlay" id="detailOverlay">
+  <div class="detail-panel glass" id="detailPanel"></div>
+</div>
+
+<script>
+/* ================= BACKGROUND NEURAL CANVAS ================= */
+(function(){
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w,h,nodes=[];
+  function resize(){w=canvas.width=window.innerWidth;h=canvas.height=Math.max(window.innerHeight,900);}
+  function initNodes(){
+    nodes=[];
+    const count = window.innerWidth<640?26:48;
+    for(let i=0;i<count;i++){
+      nodes.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*0.18,vy:(Math.random()-.5)*0.18,r:Math.random()*1.6+0.8});
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<nodes.length;i++){
+      const n=nodes[i];
+      if(!reduceMotion){n.x+=n.vx;n.y+=n.vy;}
+      if(n.x<0||n.x>w)n.vx*=-1;
+      if(n.y<0||n.y>h)n.vy*=-1;
+      for(let j=i+1;j<nodes.length;j++){
+        const m=nodes[j];
+        const dx=n.x-m.x,dy=n.y-m.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<130){
+          ctx.strokeStyle='rgba(59,130,246,'+(0.14*(1-dist/130))+')';
+          ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.stroke();
+        }
+      }
+    }
+    for(const n of nodes){
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(96,165,250,0.55)';ctx.fill();
+    }
+    if(!reduceMotion) requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();initNodes();});
+  resize();initNodes();draw();
+})();
+
+/* ================= TOAST ================= */
+const Toast = {
+  show(msg, type){
+    type = type||'success';
+    const el = document.createElement('div');
+    el.className='toast'+(type==='error'?' error':'');
+    const icon = type==='error'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>';
+    el.innerHTML = icon + '<span>'+msg+'</span>';
+    document.getElementById('toastContainer').appendChild(el);
+    setTimeout(()=>{el.style.transition='opacity .3s';el.style.opacity='0';setTimeout(()=>el.remove(),300);},2600);
+  }
+};
+
+/* ================= OVERLAY ================= */
+const Overlay = {
+  open(id){document.getElementById(id).classList.add('show');document.body.style.overflow='hidden';},
+  close(id){document.getElementById(id).classList.remove('show');document.body.style.overflow='';}
+};
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o){Overlay.close(o.id);}});
+});
+
+const Modal = { openTerms(e){e.preventDefault();Overlay.open('termsOverlay');} };
+
+function scrollToForm(){document.getElementById('register').scrollIntoView({behavior:'smooth'});}
+
+/* ================= FORM STATE ================= */
+const state = {
+  fullName:'',email:'',whatsapp:'',country:'',state:'',city:'',occupation:'',age:'',gender:'',
+  usedAi:'',level:'',reason:'',terms:false,
+  confirmType:'screenshot',txRef:'',screenshotData:'',screenshotName:''
+};
+
+document.querySelectorAll('[data-field]').forEach(inp=>{
+  inp.addEventListener('input',()=>{state[inp.dataset.field]=inp.value;clearFieldError(inp.closest('.field'));});
+  inp.addEventListener('change',()=>{state[inp.dataset.field]=inp.value;clearFieldError(inp.closest('.field'));});
+});
+
+document.querySelectorAll('#usedAiRow .pill').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('#usedAiRow .pill').forEach(x=>x.classList.remove('selected'));
+    p.classList.add('selected');state.usedAi=p.dataset.value;clearFieldError(document.getElementById('f_usedAi'));
+  });
+});
+document.querySelectorAll('#levelGrid .level-card').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('#levelGrid .level-card').forEach(x=>x.classList.remove('selected'));
+    c.classList.add('selected');state.level=c.dataset.value;clearFieldError(document.getElementById('f_level'));
+  });
+});
+document.getElementById('termsCheck').addEventListener('change',function(){
+  state.terms=this.checked;clearFieldError(document.getElementById('f_terms'));
+});
+document.querySelectorAll('#confirmTabs .confirm-tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('#confirmTabs .confirm-tab').forEach(x=>x.classList.remove('selected'));
+    t.classList.add('selected');state.confirmType=t.dataset.value;
+    document.getElementById('screenshotPane').style.display=state.confirmType==='screenshot'?'block':'none';
+    document.getElementById('referencePane').style.display=state.confirmType==='reference'?'block':'none';
+    clearFieldError({classList:{remove:()=>document.getElementById('err_payment').parentElement}});
+    document.getElementById('err_payment').parentElement.classList.remove('error');
+  });
+});
+
+function clearFieldError(fieldEl){ if(fieldEl && fieldEl.classList) fieldEl.classList.remove('error'); }
+function setFieldError(fieldEl){ if(fieldEl) fieldEl.classList.add('error'); }
+
+/* ================= FILE HANDLING ================= */
+function handleFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  if(file.size > 5*1024*1024){ Toast.show('Image too large — please choose a file under 5MB','error'); return; }
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const img = new Image();
+    img.onload = function(){
+      const maxW = 900;
+      const scale = Math.min(1, maxW/img.width);
+      const cw = Math.round(img.width*scale), ch = Math.round(img.height*scale);
+      const canvas = document.createElement('canvas');
+      canvas.width=cw; canvas.height=ch;
+      canvas.getContext('2d').drawImage(img,0,0,cw,ch);
+      let quality = 0.72;
+      let dataUrl = canvas.toDataURL('image/jpeg', quality);
+      while(dataUrl.length > 1400000 && quality > 0.3){ quality -= 0.1; dataUrl = canvas.toDataURL('image/jpeg', quality); }
+      if(dataUrl.length > 1400000){ Toast.show('Image still too large after compression — try a smaller screenshot','error'); return; }
+      state.screenshotData = dataUrl;
+      state.screenshotName = file.name;
+      document.getElementById('previewImg').src = dataUrl;
+      document.getElementById('previewName').textContent = file.name;
+      document.getElementById('uploadPreview').style.display='flex';
+      document.getElementById('err_payment').parentElement.classList.remove('error');
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function clearFile(){
+  state.screenshotData=''; state.screenshotName='';
+  document.getElementById('fileInput').value='';
+  document.getElementById('uploadPreview').style.display='none';
+}
+
+/* ================= COPY ACCOUNT ================= */
+function copyAccount(){
+  const num = '1706909660';
+  const btn = document.getElementById('copyBtn');
+  const finish = ()=>{
+    document.getElementById('copyBtnText').textContent = '✅ Account Number Copied Successfully!';
+    btn.classList.add('copied');
+    Toast.show('✅ Account Number Copied Successfully!');
+    setTimeout(()=>{document.getElementById('copyBtnText').textContent='📋 Copy Account Number';btn.classList.remove('copied');},2500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(num).then(finish).catch(()=>{fallbackCopy(num);finish();});
+  } else { fallbackCopy(num); finish(); }
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ================= WIZARD ================= */
+const TOTAL_STEPS = 4;
+const STEP_LABELS = ['Personal','Experience','Payment','Review'];
+const LEVEL_PRICES = { Beginner: 1.29, Intermediate: 1.94, Advanced: 3.23 };
+const Wizard = {
+  current:1,
+  validators:{
+    1(){
+      let ok=true;
+      const checks = [
+        ['fullName', v=>v.trim().length>1],
+        ['email', v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
+        ['whatsapp', v=>/^[+0-9\s-]{7,17}$/.test(v)],
+        ['country', v=>!!v],
+        ['state', v=>v.trim().length>1],
+        ['city', v=>v.trim().length>1],
+        ['occupation', v=>v.trim().length>1],
+        ['age', v=>Number(v)>=10 && Number(v)<=90],
+        ['gender', v=>!!v]
+      ];
+      checks.forEach(([field,fn])=>{
+        const fieldEl=document.getElementById('f_'+field);
+        if(!fn(state[field]||'')){setFieldError(fieldEl);ok=false;} else clearFieldError(fieldEl);
+      });
+      return ok;
+    },
+    2(){
+      let ok=true;
+      if(!state.usedAi){setFieldError(document.getElementById('f_usedAi'));ok=false;} else clearFieldError(document.getElementById('f_usedAi'));
+      if(!state.level){setFieldError(document.getElementById('f_level'));ok=false;} else clearFieldError(document.getElementById('f_level'));
+      if(!state.reason || state.reason.trim().length<5){setFieldError(document.getElementById('f_reason'));ok=false;} else clearFieldError(document.getElementById('f_reason'));
+      if(!state.terms){setFieldError(document.getElementById('f_terms'));ok=false;} else clearFieldError(document.getElementById('f_terms'));
+      return ok;
+    },
+    3(){
+      const errBox = document.getElementById('err_payment').parentElement;
+      let ok=true;
+      if(state.confirmType==='screenshot'){
+        if(!state.screenshotData){setFieldError(errBox);ok=false;} else clearFieldError(errBox);
+      } else {
+        if(!state.txRef || state.txRef.trim().length<3){setFieldError(errBox);ok=false;} else clearFieldError(errBox);
+      }
+      return ok;
+    },
+    4(){ return true; }
+  },
+  render(){
+    document.querySelectorAll('.step').forEach(s=>s.classList.toggle('visible', Number(s.dataset.step)===this.current));
+    document.getElementById('prevBtn').style.display = this.current===1 ? 'none':'inline-flex';
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.querySelector('.btn-text').textContent = this.current===TOTAL_STEPS ? 'I Have Paid — Submit Registration' : 'Continue';
+    nextBtn.classList.toggle('submit', this.current===TOTAL_STEPS);
+    document.getElementById('trackFill').style.width = ((this.current-1)/(TOTAL_STEPS-1)*100)+'%';
+    this.renderProgress();
+    if(this.current===3) this.updatePayAmount();
+    if(this.current===4) this.renderReview();
+    document.getElementById('register').scrollIntoView({behavior:'smooth', block:'start'});
+  },
+  updatePayAmount(){
+    const price = LEVEL_PRICES[state.level];
+    document.getElementById('payAmountLevel').textContent = state.level || 'select a level';
+    document.getElementById('payAmountValue').textContent = price ? ('$'+price.toFixed(2)) : '—';
+  },
+  renderProgress(){
+    const wrap = document.getElementById('growthProgress');
+    wrap.querySelectorAll('.g-step').forEach(n=>n.remove());
+    for(let i=1;i<=TOTAL_STEPS;i++){
+      const div=document.createElement('div');
+      div.className='g-step'+(i<this.current?' done':i===this.current?' active':'');
+      div.innerHTML = '<div class="g-node">'+(i<this.current ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c4-3 7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 3 8 7 11z"/><circle cx="12" cy="11" r="2.4"/></svg>')+'</div><div class="g-label">'+STEP_LABELS[i-1]+'</div>';
+      wrap.appendChild(div);
+    }
+  },
+  renderReview(){
+    const rows = [
+      ['Full Name', state.fullName],['Email', state.email],['WhatsApp', state.whatsapp],
+      ['Country', state.country],['State', state.state],['City', state.city],
+      ['Occupation', state.occupation],['Age', state.age],['Gender', state.gender],
+      ['Used AI Before', state.usedAi],['Level', state.level],
+      ['Amount Due', LEVEL_PRICES[state.level] ? ('$'+LEVEL_PRICES[state.level].toFixed(2)) : '—'],
+      ['Payment Proof', state.confirmType==='screenshot' ? (state.screenshotName || 'Screenshot attached') : ('Ref: '+state.txRef)]
+    ];
+    document.getElementById('reviewList').innerHTML = rows.map(([k,v])=>'<div class="review-row"><span class="k">'+k+'</span><span class="v">'+escapeHtml(String(v||'—'))+'</span></div>').join('');
+  },
+  next(){
+    if(!this.validators[this.current]()){
+      Toast.show('Please fill in all required fields correctly','error');
+      return;
+    }
+    if(this.current < TOTAL_STEPS){ this.current++; this.render(); }
+    else { submitRegistration(); }
+  },
+  prev(){ if(this.current>1){ this.current--; this.render(); } }
+};
+Wizard.render();
+
+function escapeHtml(str){ const d=document.createElement('div'); d.textContent=str; return d.innerHTML; }
+
+/* ================= STUDENT ID + SUBMIT ================= */
+async function generateStudentId(){
+  const year = '2026';
+  let count = 1;
+  try{
+    const res = await window.storage.get('wsai-counter', true);
+    if(res && res.value){ count = (JSON.parse(res.value).count || 0) + 1; }
+  }catch(e){ count = 1; }
+  await window.storage.set('wsai-counter', JSON.stringify({count}), true);
+  return 'WSAI-'+year+'-'+String(count).padStart(4,'0');
+}
+
+async function submitRegistration(){
+  const btn = document.getElementById('nextBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  try{
+    const studentId = await generateStudentId();
+    const record = {
+      studentId,
+      fullName: state.fullName.trim(),
+      email: state.email.trim(),
+      whatsapp: state.whatsapp.trim(),
+      country: state.country,
+      state: state.state.trim(),
+      city: state.city.trim(),
+      occupation: state.occupation.trim(),
+      age: state.age,
+      gender: state.gender,
+      usedAi: state.usedAi,
+      level: state.level,
+      amountDue: LEVEL_PRICES[state.level] || 0,
+      reason: state.reason.trim(),
+      paymentScreenshot: state.confirmType==='screenshot' ? state.screenshotData : '',
+      transactionRef: state.confirmType==='reference' ? state.txRef.trim() : '',
+      paymentStatus: 'Pending',
+      dateRegistered: new Date().toISOString()
+    };
+    await window.storage.set('registration:'+studentId, JSON.stringify(record), true);
+    document.getElementById('studentIdDisplay').textContent = studentId;
+    launchConfetti();
+    Overlay.open('successOverlay');
+    resetForm();
+  }catch(e){
+    Toast.show('Something went wrong saving your registration. Please try again.','error');
+  }finally{
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+function resetForm(){
+  Wizard.current = 1;
+  document.querySelectorAll('[data-field]').forEach(i=>i.value='');
+  document.querySelectorAll('.pill.selected,.level-card.selected,.confirm-tab.selected').forEach(e=>e.classList.remove('selected'));
+  document.querySelector('#confirmTabs .confirm-tab[data-value="screenshot"]').classList.add('selected');
+  document.getElementById('termsCheck').checked=false;
+  clearFile();
+  Object.keys(state).forEach(k=>{ state[k] = (k==='confirmType') ? 'screenshot' : (typeof state[k]==='boolean' ? false : ''); });
+  document.getElementById('screenshotPane').style.display='block';
+  document.getElementById('referencePane').style.display='none';
+  Wizard.render();
+}
+
+function joinWhatsapp(){
+  window.open('https://chat.whatsapp.com/CXc3qkUKg5J94sSWRhdnFu','_blank');
+}
+
+function launchConfetti(){
+  const card = document.getElementById('successCard');
+  const colors = ['#3b82f6','#22d3ee','#34d399','#f4f7fc'];
+  for(let i=0;i<28;i++){
+    const p = document.createElement('div');
+    p.className='confetti-piece';
+    const size = 5+Math.random()*5;
+    p.style.width=size+'px';p.style.height=(size*0.4)+'px';
+    p.style.left=Math.random()*100+'%';
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration=(1.6+Math.random()*1.2)+'s';
+    p.style.animationDelay=(Math.random()*0.3)+'s';
+    card.appendChild(p);
+    setTimeout(()=>p.remove(),3200);
+  }
+}
+
+/* ================= FEATURES ================= */
+const FEATURES = [
+  ['Mobile Responsive','Looks and works beautifully on any phone screen.', '<path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M11 18h2"/>'],
+  ['Desktop Responsive','A polished layout that scales to any monitor.', '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>'],
+  ['Glassmorphism UI','Frosted, layered cards for a premium AI feel.', '<path d="M3 12l9-9 9 9-9 9-9-9z"/>'],
+  ['Smooth Animations','Every interaction is fluid, never jarring.', '<path d="M4 12a8 8 0 0 1 8-8V2.5"/><path d="M20 12a8 8 0 0 1-8 8v1.5"/>'],
+  ['Progress Bar','A growth-path tracker guides you through the form.', '<path d="M12 22c4-3 7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 3 8 7 11z"/><circle cx="12" cy="11" r="2.4"/>'],
+  ['Loading Spinner','Clear feedback the moment you submit.', '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'],
+  ['Success Animation','A celebratory moment when you are officially in.', '<path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2z"/>'],
+  ['Secure Validation','Every field is checked before it is submitted.', '<path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/>'],
+  ['AI-Themed Icons','Visual language drawn straight from the subject.', '<path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/><rect x="7" y="7" width="10" height="10" rx="2"/>'],
+  ['Fast Loading','Lightweight build, no heavy frameworks required.', '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>'],
+];
+document.getElementById('featuresGrid').innerHTML = FEATURES.map(([t,d,icon])=>
+  '<div class="feature-card glass"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+icon+'</svg></div><h4>'+t+'</h4><p>'+d+'</p></div>'
+).join('');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+},{threshold:0.15});
+document.querySelectorAll('.feature-card').forEach(c=>io.observe(c));
+
+/* ================= ADMIN ================= */
+const ADMIN_PASSWORD = 'sprout2026';
+const Admin = {
+  authed:false,
+  records:[],
+  search:'',
+  statusFilter:'all',
+  levelFilter:'all',
+  open(){
+    Overlay.open('adminOverlay');
+    this.authed ? this.renderDashboard() : this.renderGate();
+  },
+  renderGate(){
+    document.getElementById('adminPanel').innerHTML = `
+      <div class="admin-gate">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5z"/></svg></div>
+        <h3>Admin Dashboard</h3>
+        <p>Enter the admin password to view registrations.</p>
+        <input type="password" id="adminPwInput" placeholder="Password" onkeydown="if(event.key==='Enter')Admin.tryLogin()">
+        <button class="btn-continue" style="width:100%;" onclick="Admin.tryLogin()"><span class="btn-text">Unlock Dashboard</span></button>
+      </div>`;
+    setTimeout(()=>{const el=document.getElementById('adminPwInput'); if(el) el.focus();},50);
+  },
+  tryLogin(){
+    const val = document.getElementById('adminPwInput').value;
+    if(val === ADMIN_PASSWORD){ this.authed = true; this.renderDashboard(); }
+    else { Toast.show('Incorrect password','error'); }
+  },
+  async loadRecords(){
+    const listRes = await window.storage.list('registration:', true);
+    const keys = (listRes && listRes.keys) || [];
+    const records = [];
+    for(const k of keys){
+      try{
+        const r = await window.storage.get(k, true);
+        if(r && r.value) records.push(JSON.parse(r.value));
+      }catch(e){}
+    }
+    records.sort((a,b)=> new Date(b.dateRegistered) - new Date(a.dateRegistered));
+    this.records = records;
+  },
+  async renderDashboard(){
+    document.getElementById('adminPanel').innerHTML = `
+      <div class="admin-head">
+        <h3>Registrations Dashboard</h3>
+        <button class="close-x" onclick="Overlay.close('adminOverlay')">✕</button>
+      </div>
+      <div class="admin-toolbar">
+        <div class="admin-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="adminSearchInput" placeholder="Search name, email, or student ID...">
+        </div>
+        <select class="admin-filter" id="statusFilterSel">
+          <option value="all">All Status</option><option value="Paid">Paid</option><option value="Pending">Pending</option>
+        </select>
+        <select class="admin-filter" id="levelFilterSel">
+          <option value="all">All Levels</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option>
+        </select>
+        <span class="admin-count" id="adminCount"></span>
+      </div>
+      <div class="admin-body" id="adminBody">
+        <div class="empty-state">Loading registrations...</div>
+      </div>`;
+    document.getElementById('adminSearchInput').addEventListener('input', e=>{ this.search=e.target.value.toLowerCase(); this.renderTable(); });
+    document.getElementById('statusFilterSel').addEventListener('change', e=>{ this.statusFilter=e.target.value; this.renderTable(); });
+    document.getElementById('levelFilterSel').addEventListener('change', e=>{ this.levelFilter=e.target.value; this.renderTable(); });
+    await this.loadRecords();
+    this.renderTable();
+  },
+  renderTable(){
+    let rows = this.records.filter(r=>{
+      const matchesSearch = !this.search || (r.fullName||'').toLowerCase().includes(this.search) || (r.email||'').toLowerCase().includes(this.search) || (r.studentId||'').toLowerCase().includes(this.search);
+      const matchesStatus = this.statusFilter==='all' || r.paymentStatus===this.statusFilter;
+      const matchesLevel = this.levelFilter==='all' || r.level===this.levelFilter;
+      return matchesSearch && matchesStatus && matchesLevel;
+    });
+    document.getElementById('adminCount').textContent = rows.length + ' of ' + this.records.length + ' registrations';
+    const body = document.getElementById('adminBody');
+    if(rows.length===0){
+      body.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg><p>No registrations match your filters yet.</p></div>';
+      return;
+    }
+    body.innerHTML = `<table><thead><tr>
+        <th>Student ID</th><th>Name</th><th>Contact</th><th>Location</th><th>Level</th><th>Status</th><th>Date</th><th></th>
+      </tr></thead><tbody>${rows.map(r=>`
+        <tr>
+          <td data-label="ID"><span class="sid-chip">${r.studentId}</span></td>
+          <td data-label="Name">${escapeHtml(r.fullName)}</td>
+          <td data-label="Contact">${escapeHtml(r.email)}<br><span style="color:var(--muted-dim)">${escapeHtml(r.whatsapp)}</span></td>
+          <td data-label="Location">${escapeHtml(r.city)}, ${escapeHtml(r.state)}</td>
+          <td data-label="Level"><span class="lvl-chip">${r.level}</span><br><span style="color:var(--muted-dim);font-size:11px;">$${r.amountDue ? Number(r.amountDue).toFixed(2) : '0.00'}</span></td>
+          <td data-label="Status"><button class="status-chip ${r.paymentStatus==='Paid'?'paid':'pending'}" onclick="Admin.toggleStatus('${r.studentId}')">${r.paymentStatus}</button></td>
+          <td data-label="Date">${new Date(r.dateRegistered).toLocaleDateString()}</td>
+          <td data-label=""><button class="view-btn" onclick="Admin.viewDetail('${r.studentId}')">View</button></td>
+        </tr>`).join('')}</tbody></table>`;
+  },
+  async toggleStatus(studentId){
+    const rec = this.records.find(r=>r.studentId===studentId);
+    if(!rec) return;
+    rec.paymentStatus = rec.paymentStatus === 'Paid' ? 'Pending' : 'Paid';
+    await window.storage.set('registration:'+studentId, JSON.stringify(rec), true);
+    this.renderTable();
+    Toast.show('Payment status updated to '+rec.paymentStatus);
+  },
+  viewDetail(studentId){
+    const r = this.records.find(x=>x.studentId===studentId);
+    if(!r) return;
+    const rows = [
+      ['Student ID', r.studentId],['Full Name', r.fullName],['Email', r.email],['WhatsApp', r.whatsapp],
+      ['Country', r.country],['State', r.state],['City', r.city],['Occupation', r.occupation],
+      ['Age', r.age],['Gender', r.gender],['Used AI Before', r.usedAi],['Level', r.level],
+      ['Amount Due', r.amountDue ? ('$'+Number(r.amountDue).toFixed(2)) : '—'],
+      ['Payment Status', r.paymentStatus],['Transaction Ref', r.transactionRef || '—'],
+      ['Date Registered', new Date(r.dateRegistered).toLocaleString()]
+    ];
+    document.getElementById('detailPanel').innerHTML = `
+      <div class="detail-head"><h3 style="font-size:16px;">${escapeHtml(r.fullName)}</h3><button class="close-x" onclick="Overlay.close('detailOverlay')">✕</button></div>
+      <div class="detail-body">
+        ${rows.map(([k,v])=>`<div class="detail-row"><span class="k">${k}</span><span class="v">${escapeHtml(String(v||'—'))}</span></div>`).join('')}
+        <div class="detail-row"><span class="k">Why join</span></div>
+        <p style="font-size:13px;color:var(--muted);margin-top:-4px;">${escapeHtml(r.reason||'—')}</p>
+        ${r.paymentScreenshot ? '<img src="'+r.paymentScreenshot+'" alt="Payment screenshot">' : ''}
+      </div>`;
+    Overlay.open('detailOverlay');
+  }
+};
+</script>
+</body>
+</html>
